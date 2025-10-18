@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/api/wp/:path*",
+        destination: "http://shopsoma.local/wp-json/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
