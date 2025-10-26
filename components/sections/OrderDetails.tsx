@@ -84,43 +84,43 @@ const OrderDetails = () => {
             <p className="text-[#989898] font-lexend text-2xl">Timeline</p>
             <div className="flex mt-10 items-center gap-20">
                 <div>
-                    <h1 className="text-[#3D3D3D] text-3xl">8th Sept</h1>
-                    <h1 className="text-[#3D3D3D] text-3xl">6:00AM</h1>
+                    <h1 className="text-[#3D3D3D] text-2xl">8th Sept</h1>
+                    <h1 className="text-[#3D3D3D] text-2xl">6:00AM</h1>
                 </div>
                 <div>
-                    <h1 className="text-[#3D3D3D] text-3xl">The order has been shipped</h1>
-                    <h1 className="text-[#989898] text-3xl">Distribution Center, Lagos</h1>
-                </div>
-            </div>
-            <div className="flex mt-10  items-center gap-20">
-                <div>
-                    <h1 className="text-[#989898] text-3xl">6th Sept</h1>
-                    <h1 className="text-[#989898] text-3xl">4:37PM</h1>
-                </div>
-                <div>
-                    <h1 className="text-[#989898] text-3xl">Item stock low. Please ship new stock</h1>
-                    <h1 className="text-[#989898] text-3xl">Shopsoma Warehouse, Lagos</h1>
+                    <h1 className="text-[#3D3D3D] text-2xl">The order has been shipped</h1>
+                    <h1 className="text-[#989898] text-2xl">Distribution Center, Lagos</h1>
                 </div>
             </div>
             <div className="flex mt-10  items-center gap-20">
                 <div>
-                    <h1 className="text-[#989898] text-3xl">3rd Sept</h1>
-                    <h1 className="text-[#989898] text-3xl">9:00AM</h1>
+                    <h1 className="text-[#989898] text-2xl">6th Sept</h1>
+                    <h1 className="text-[#989898] text-2xl">4:37PM</h1>
                 </div>
                 <div>
-                    <h1 className="text-[#989898] text-3xl">Order undergoing inspection</h1>
-                    <h1 className="text-[#989898] text-3xl">Shopsoma Warehouse, Lago</h1>
+                    <h1 className="text-[#989898] text-2xl">Item stock low. Please ship new stock</h1>
+                    <h1 className="text-[#989898] text-2xl">Shopsoma Warehouse, Lagos</h1>
+                </div>
+            </div>
+            <div className="flex mt-10  items-center gap-20">
+                <div>
+                    <h1 className="text-[#989898] text-2xl">3rd Sept</h1>
+                    <h1 className="text-[#989898] text-2xl">9:00AM</h1>
+                </div>
+                <div>
+                    <h1 className="text-[#989898] text-2xl">Order undergoing inspection</h1>
+                    <h1 className="text-[#989898] text-2xl">Shopsoma Warehouse, Lago</h1>
                 </div>
                
             </div>
              <div className="flex mt-10  items-center gap-20">
                 <div>
-                    <h1 className="text-[#989898] text-3xl">1st Sept</h1>
-                    <h1 className="text-[#989898] text-3xl">8:34PM</h1>
+                    <h1 className="text-[#989898] text-2xl">1st Sept</h1>
+                    <h1 className="text-[#989898] text-2xl">8:34PM</h1>
                 </div>
                 <div>
-                    <h1 className="text-[#989898] text-3xl">Order placed</h1>
-                    <h1 className="text-[#989898] text-3xl"></h1>
+                    <h1 className="text-[#989898] text-2xl">Order placed</h1>
+                    <h1 className="text-[#989898] text-2xl"></h1>
                 </div>
             </div>
            

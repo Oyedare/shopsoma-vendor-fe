@@ -1,7 +1,6 @@
 import Edit from "@/assets/edit.svg";
 import fruit from "@/assets/fruit.svg";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 const FruitSummary = () => {
   return (
     <div className="flex justify-between mt-5">
