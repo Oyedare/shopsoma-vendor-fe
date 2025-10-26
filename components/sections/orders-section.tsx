@@ -12,6 +12,8 @@ import { Badge } from "@/components/ui/badge";
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
 import { authenticatedRequest } from "@/lib/api";
+import { Eye } from "lucide-react";
+import { MoveLeft } from "lucide-react";
 
 type VendorOrderItem = {
   item_id: number;
@@ -86,6 +88,7 @@ export function OrdersSection() {
 
   return (
     <section>
+     
       <div className=" overflow-hidden">
         <Table>
           <TableHeader>
@@ -160,6 +163,7 @@ export function OrdersSection() {
                     </Badge>
                   )}
                 </TableCell>
+               
               </TableRow>
             ))}
           </TableBody>

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import { Pencil, Plus, Trash } from "lucide-react";
+import cloth from "@/assets/cloth.png";
 import {
   Table,
   TableBody,
@@ -31,6 +32,14 @@ type Product = {
   stock_status?: string;
   created_date?: string;
 };
+type Collection = {
+  id: number;
+  productName: string;
+  collectionPrice: string;
+  lastEdited: string;
+  stock: string;
+  approved:string
+};
 
 export function ProductsSection() {
   const [groupBy, setGroupBy] = useState("all");
@@ -42,6 +51,48 @@ export function ProductsSection() {
   const perPage = 12;
 
   const vendorId = user?.user_id;
+  const collections: Collection[] = [
+    {
+      id: 1,
+      productName: "Adipiscing bun bag distillery hide street small.",
+      collectionPrice: "$423",
+      lastEdited: "12/09/25",
+      stock: "927",
+      approved:'Approved'    
+    },
+    {
+      id: 2,
+      productName: "V chicken intelligentsia small man +1 kinfolk kitsch.",
+      collectionPrice: "$757",
+      lastEdited: "12/09/25",
+      stock: "44",
+       approved:'Approved'    
+    },
+    {
+      id: 3,
+      productName: "Mumblecore marfa calico coffee cliche.",
+      collectionPrice: "$423",
+      lastEdited: "12/09/25",
+      stock: "44",
+       approved:'Approved'    
+    },
+    {
+      id: 4,
+      productName: "V praxis jean praxis umami kitsch.",
+      collectionPrice: "$737",
+      lastEdited: "12/09/25",
+      stock: "44",
+       approved:'Approved'    
+    },
+    {
+      id: 5,
+      productName: "Franzen flannel park denim kickstarter twee small.",
+      collectionPrice: "$757",
+      lastEdited: "12/09/25",
+       approved:'Approved'    ,
+      stock: "44",
+    },
+  ];
 
   const loadProducts = async () => {
     if (!vendorId) return;
@@ -132,150 +183,400 @@ export function ProductsSection() {
           </Button>
         </div>
       </div>
+      {groupBy === "collections" ? (
+        <>
+          <h1 className="text-[#3D3D3D] font-lexend text-[12px] text-center">
+            S/S 24 Monolorn Collection (63)
+          </h1>
+          <Table>
+            <TableHeader className="w-full max-w-[72.75rem]">
+              <TableRow className="grid h-[2.875rem] py-3 px-4 gap-x-[40px] grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px]">
+                <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  <ImageIcon />
+                </TableHead>
+                <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Product Name
+                </TableHead>
+<TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Price
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Last Edited
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Stock
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Actions
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody className="w-full max-w-[72.75rem]">
+              {isLoading && (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    className="text-center text-xs text-[#292929] py-6"
+                  >
+                    Loading collections...
+                  </TableCell>
+                </TableRow>
+              )}
+              {!isLoading && error && (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    className="text-center text-xs text-red-600 py-6"
+                  >
+                    {error}
+                  </TableCell>
+                </TableRow>
+              )}
+              {!isLoading && !error && rows.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    className="text-center text-xs text-[#292929] py-6"
+                  >
+                    No collections yet
+                  </TableCell>
+                </TableRow>
+              )}
+              {collections.map((item, idx) => (
+                <TableRow
+                  key={item.id}
+                  className={`${
+                    idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
+                  } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
+                >
+                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
+                    <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
+                      
+                        <Image
+                          src={cloth}
+                       alt="cloth image"
+                          width={24}
+                          height={24}
+                          className="w-full h-full object-cover rounded-[0.5rem]"
+                        />
+                     
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {item.productName}
+                  </TableCell>
+<TableCell className="text-right">
+                    {collections.approved === "approved" ? (
+                      <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                        Approved
+                      </Badge>
+                    ) : collections.approved === "pending" ? (
+                      <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                        Pending
+                      </Badge>
+                    ) : (
+                      <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem] capitalize">
+                        {collections.approved || "Pending"}
+                      </Badge>
+                    )}
+                  </TableCell>
+                  
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {item.collectionPrice}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {item.lastEdited}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#16A34A]">
+                    {item.stock}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
+                    <div className="w-full flex items-center justify-end gap-2">
+                      <Button variant="ghost">
+                        <ViewIcon />
+                      </Button>
+                      <Button variant="ghost">
+                        <EditIcon />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <p className="text-[#3d3d3d] font-lexend text-[12px]">See More </p>
+          <h1 className="text-[#3D3D3D] font-lexend text-[12px] text-center">
+            S/S 24 Waves and Worn Collection (42)
+          </h1>
+          <Table>
+            <TableHeader className="w-full max-w-[72.75rem]">
+              <TableRow className="grid h-[2.875rem] py-3 px-4 gap-x-[40px] grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px]">
+                <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  <ImageIcon />
+                </TableHead>
+                <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Product Name
+                </TableHead>
+<TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Price
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Last Edited
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Stock
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Actions
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody className="w-full max-w-[72.75rem]">
+              {isLoading && (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    className="text-center text-xs text-[#292929] py-6"
+                  >
+                    Loading products...
+                  </TableCell>
+                </TableRow>
+              )}
+              {!isLoading && error && (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    className="text-center text-xs text-red-600 py-6"
+                  >
+                    {error}
+                  </TableCell>
+                </TableRow>
+              )}
+              {!isLoading && !error && rows.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    className="text-center text-xs text-[#292929] py-6"
+                  >
+                    No products yet
+                  </TableCell>
+                </TableRow>
+              )}
+              {collections.map((item, idx) => (
+                <TableRow
+                  key={item.id}
+                  className={`${
+                    idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
+                  } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
+                >
+                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
+                    <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
+                      
+                        <Image
+                          src={cloth}
+                          alt="Image cloth"
+                          width={24}
+                          height={24}
+                          className="w-full h-full object-cover rounded-[0.5rem]"
+                        />
+                     
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {item.productName}
+                  </TableCell>
 
-      <Table>
-        <TableHeader className="w-full max-w-[72.75rem]">
-          <TableRow className="grid h-[2.875rem] py-3 px-4 gap-x-[40px] grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px]">
-            <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
-              <ImageIcon />
-            </TableHead>
-            <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
-              Product Name
-            </TableHead>
-            <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
-              Approval Status
-            </TableHead>
-            <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
-              Price
-            </TableHead>
-            <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
-              Last Edited
-            </TableHead>
-            <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
-              Stock
-            </TableHead>
-            <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
-              Actions
-            </TableHead>
-          </TableRow>
-        </TableHeader>
+                  <TableCell className="text-right">
+                    {collections.approved === "approved" ? (
+                      <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                        Approved
+                      </Badge>
+                    ) : collections.approved === "pending" ? (
+                      <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                        Pending
+                      </Badge>
+                    ) : (
+                      <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem] capitalize">
+                        {collections.approved || "Pending"}
+                      </Badge>
+                    )}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {item.collectionPrice}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {item.lastEdited}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#16A34A]">
+                    {item.stock}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
+                    <div className="w-full flex items-center justify-end gap-2">
+                      <Button variant="ghost">
+                        <ViewIcon />
+                      </Button>
+                      <Button variant="ghost">
+                        <EditIcon />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </>
+      ) : (
+        <>
+          <Table>
+            <TableHeader className="w-full max-w-[72.75rem]">
+              <TableRow className="grid h-[2.875rem] py-3 px-4 gap-x-[40px] grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px]">
+                <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  <ImageIcon />
+                </TableHead>
+                <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Product Name
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Approval Status
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Price
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Last Edited
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Stock
+                </TableHead>
+                <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
+                  Actions
+                </TableHead>
+              </TableRow>
+            </TableHeader>
 
-        <TableBody className="w-full max-w-[72.75rem]">
-          {isLoading && (
-            <TableRow>
-              <TableCell
-                colSpan={7}
-                className="text-center text-xs text-[#292929] py-6"
-              >
-                Loading products...
-              </TableCell>
-            </TableRow>
-          )}
-          {!isLoading && error && (
-            <TableRow>
-              <TableCell
-                colSpan={7}
-                className="text-center text-xs text-red-600 py-6"
-              >
-                {error}
-              </TableCell>
-            </TableRow>
-          )}
-          {!isLoading && !error && rows.length === 0 && (
-            <TableRow>
-              <TableCell
-                colSpan={7}
-                className="text-center text-xs text-[#292929] py-6"
-              >
-                No products yet
-              </TableCell>
-            </TableRow>
-          )}
-          {rows.map((row, idx) => (
-            <TableRow
-              key={row.id}
-              className={`${
-                idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
-              } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
+            <TableBody className="w-full max-w-[72.75rem]">
+              {isLoading && (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    className="text-center text-xs text-[#292929] py-6"
+                  >
+                    Loading products...
+                  </TableCell>
+                </TableRow>
+              )}
+              {!isLoading && error && (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    className="text-center text-xs text-red-600 py-6"
+                  >
+                    {error}
+                  </TableCell>
+                </TableRow>
+              )}
+              {!isLoading && !error && rows.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    className="text-center text-xs text-[#292929] py-6"
+                  >
+                    No products yet
+                  </TableCell>
+                </TableRow>
+              )}
+              {rows.map((row, idx) => (
+                <TableRow
+                  key={row.id}
+                  className={`${
+                    idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
+                  } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
+                >
+                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
+                    <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
+                      {typeof row.img === "string" ? (
+                        <img
+                          src={row.img}
+                          alt={row.name}
+                          className="w-full h-full object-cover rounded-[0.5rem]"
+                        />
+                      ) : (
+                        <Image
+                          src={row.img}
+                          alt={row.name}
+                          width={24}
+                          height={24}
+                          className="w-full h-full object-cover rounded-[0.5rem]"
+                        />
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {row.name}
+                  </TableCell>
+
+                  <TableCell className="text-right">
+                    {row.approvalStatus === "approved" ? (
+                      <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                        Approved
+                      </Badge>
+                    ) : row.approvalStatus === "pending" ? (
+                      <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                        Pending
+                      </Badge>
+                    ) : (
+                      <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem] capitalize">
+                        {row.approvalStatus || "Pending"}
+                      </Badge>
+                    )}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {row.price}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {row.dateCreated}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#16A34A]">
+                    {row.stockStatus}
+                  </TableCell>
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
+                    <div className="w-full flex items-center justify-end gap-2">
+                      <Button variant="ghost">
+                        <ViewIcon />
+                      </Button>
+                      <Button variant="ghost">
+                        <EditIcon />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <div className="flex items-center justify-end gap-2 mt-3">
+            <button
+              className="py-1 px-3 text-xs rounded-md border border-[#DCDCDC] disabled:opacity-50"
+              disabled={page === 1 || isLoading}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
             >
-              <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
-                <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
-                  {typeof row.img === "string" ? (
-                    <img
-                      src={row.img}
-                      alt={row.name}
-                      className="w-full h-full object-cover rounded-[0.5rem]"
-                    />
-                  ) : (
-                    <Image
-                      src={row.img}
-                      alt={row.name}
-                      width={24}
-                      height={24}
-                      className="w-full h-full object-cover rounded-[0.5rem]"
-                    />
-                  )}
-                </div>
-              </TableCell>
-              <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-                {row.name}
-              </TableCell>
-
-              <TableCell className="text-right">
-                {row.approvalStatus === "approved" ? (
-                  <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
-                    Approved
-                  </Badge>
-                ) : row.approvalStatus === "pending" ? (
-                  <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
-                    Pending
-                  </Badge>
-                ) : (
-                  <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem] capitalize">
-                    {row.approvalStatus || "Pending"}
-                  </Badge>
-                )}
-              </TableCell>
-              <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-                {row.price}
-              </TableCell>
-              <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-                {row.dateCreated}
-              </TableCell>
-              <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#16A34A]">
-                {row.stockStatus}
-              </TableCell>
-              <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
-                <div className="w-full flex items-center justify-end gap-2">
-                  <Button variant="ghost">
-                    <ViewIcon />
-                  </Button>
-                  <Button variant="ghost">
-                    <EditIcon />
-                  </Button>
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-
-      <div className="flex items-center justify-end gap-2 mt-3">
-        <button
-          className="py-1 px-3 text-xs rounded-md border border-[#DCDCDC] disabled:opacity-50"
-          disabled={page === 1 || isLoading}
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
-        >
-          Prev
-        </button>
-        <button
-          className="py-1 px-3 text-xs rounded-md border border-[#DCDCDC] disabled:opacity-50"
-          disabled={isLoading || rows.length < perPage}
-          onClick={() => setPage((p) => p + 1)}
-        >
-          Next
-        </button>
-      </div>
+              Prev
+            </button>
+            <button
+              className="py-1 px-3 text-xs rounded-md border border-[#DCDCDC] disabled:opacity-50"
+              disabled={isLoading || rows.length < perPage}
+              onClick={() => setPage((p) => p + 1)}
+            >
+              Next
+            </button>
+          </div>
+        </>
+      )}
     </section>
   );
 }
