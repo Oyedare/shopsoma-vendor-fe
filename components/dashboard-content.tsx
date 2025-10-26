@@ -10,6 +10,8 @@ import { StorefrontSettingsSection } from "@/components/sections/storefront-sett
 import { MessagingSection } from "@/components/sections/messaging-section";
 import { HelpSection } from "@/components/sections/help-section";
 import { NotificationsSection } from "@/components/sections/notifications-section";
+import OrderDetails from "./sections/OrderDetails";
+
 
 interface DashboardContentProps {
   activeSection: string;
@@ -21,6 +23,8 @@ export function DashboardContent({ activeSection }: DashboardContentProps) {
       return <OrdersSection />;
     case "products":
       return <ProductsSection />;
+         case "order-details":
+      return <OrderDetails />
     case "collections":
       return <CollectionsSection />;
     case "marketing":

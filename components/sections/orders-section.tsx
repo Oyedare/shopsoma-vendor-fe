@@ -14,6 +14,7 @@ import { useAuth } from "@/contexts/auth-context";
 import { authenticatedRequest } from "@/lib/api";
 import { Eye } from "lucide-react";
 import { MoveLeft } from "lucide-react";
+import ViewIcon from "@/assets/view-icon";
 
 type VendorOrderItem = {
   item_id: number;
@@ -163,7 +164,9 @@ export function OrdersSection() {
                     </Badge>
                   )}
                 </TableCell>
-               
+               <TableCell>
+                <ViewIcon />
+               </TableCell>
               </TableRow>
             ))}
           </TableBody>
