@@ -2,9 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
-import { Pencil, Plus, Trash } from "lucide-react";
+import { Pencil, Plus, Trash,ChevronDown } from "lucide-react";
 import cloth from "@/assets/cloth.png";
-import dropdown  from '@/assets/drpdown.svg'
+
 import {
   Table,
   TableBody,
@@ -329,10 +329,11 @@ export function ProductsSection() {
 
             </TableBody>
           </Table>
-          <span className="flex">
-            <p className="text-[#989898] text-center font-lexend text-[12px]">See More </p>
-            <img src={dropdown} alt="dropdown" />
-          </span>
+          <div className="flex items-center justify-center">
+  <p className="text-[#989898] text-center font-lexend">See More</p>
+  <ChevronDown className="text-[#989898] font-lexend " />
+</div>
+
           <h1 className="text-[#3D3D3D] font-lexend text-[12px] text-center">
             S/S 24 Waves and Worn Collection (7)
           </h1>
@@ -385,7 +386,7 @@ export function ProductsSection() {
               )}
               {!isLoading && !error && rows.length === 0 && (
                 <TableRow>
-                  <TableCellf
+                  <TableCell
                     colSpan={7}
                     className="text-center text-xs text-[#292929] py-6"
                   >
