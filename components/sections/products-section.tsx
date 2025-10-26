@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import { Pencil, Plus, Trash } from "lucide-react";
 import cloth from "@/assets/cloth.png";
+import dropdown  from '@/assets/drpdown.svg'
 import {
   Table,
   TableBody,
@@ -54,43 +55,43 @@ export function ProductsSection() {
   const collections: Collection[] = [
     {
       id: 1,
-      productName: "Adipiscing bun bag distillery hide street small.",
+      productName: "Pickled copper braid unami poutine",
       collectionPrice: "$423",
-      lastEdited: "12/09/25",
-      stock: "927",
-      approved:'Approved'    
+      lastEdited: "In stock",
+      stock: "12/09/25",
+      approved:'Low Stock'    
     },
     {
       id: 2,
-      productName: "V chicken intelligentsia small man +1 kinfolk kitsch.",
-      collectionPrice: "$757",
+      productName: "Drinking bottle letterpress selfies belly flannel meh on",
+      collectionPrice: "$423",
       lastEdited: "12/09/25",
-      stock: "44",
-       approved:'Approved'    
+      stock: "In stock",
+       approved:'Low Stock'    
     },
     {
       id: 3,
-      productName: "Mumblecore marfa calico coffee cliche.",
+      productName: "Semiotics twee williamsburg helvetica sustainable juice church",
       collectionPrice: "$423",
-      lastEdited: "12/09/25",
-      stock: "44",
-       approved:'Approved'    
+      lastEdited: "In stock",
+      stock: "12/09/25",
+       approved:'Low Stock'    
     },
     {
       id: 4,
-      productName: "V praxis jean praxis umami kitsch.",
-      collectionPrice: "$737",
+      productName: "Pack dollar migas whatever aesthetic cronut sustainable",
+      collectionPrice: "$423",
       lastEdited: "12/09/25",
-      stock: "44",
-       approved:'Approved'    
+      stock: "In stock",
+       approved:'Low Stock'    
     },
     {
       id: 5,
-      productName: "Franzen flannel park denim kickstarter twee small.",
-      collectionPrice: "$757",
-      lastEdited: "12/09/25",
-       approved:'Approved'    ,
-      stock: "44",
+      productName: "coffee typewriter right vape haven't",
+      collectionPrice: "$423",
+      lastEdited: "In stock",
+       approved:'Low Stock'    ,
+      stock: "12/09/25",
     },
   ];
 
@@ -163,7 +164,7 @@ export function ProductsSection() {
               variant="ghost"
               onClick={() => setGroupBy("collections")}
             >
-              Collections
+              Collections(53)
             </Button>
           </div>
         </div>
@@ -186,7 +187,7 @@ export function ProductsSection() {
       {groupBy === "collections" ? (
         <>
           <h1 className="text-[#3D3D3D] font-lexend text-[12px] text-center">
-            S/S 24 Monolorn Collection (63)
+            S/S 24 Monolorn Collection (13)
           </h1>
           <Table>
             <TableHeader className="w-full max-w-[72.75rem]">
@@ -246,70 +247,94 @@ export function ProductsSection() {
                 </TableRow>
               )}
               {collections.map((item, idx) => (
-                <TableRow
-                  key={item.id}
-                  className={`${
-                    idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
-                  } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
-                >
-                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
-                    <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
-                      
-                        <Image
-                          src={cloth}
-                       alt="cloth image"
-                          width={24}
-                          height={24}
-                          className="w-full h-full object-cover rounded-[0.5rem]"
-                        />
-                     
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-                    {item.productName}
-                  </TableCell>
-<TableCell className="text-right">
-                    {collections.approved === "approved" ? (
-                      <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
-                        Approved
-                      </Badge>
-                    ) : collections.approved === "pending" ? (
-                      <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
-                        Pending
-                      </Badge>
-                    ) : (
-                      <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem] capitalize">
-                        {collections.approved || "Pending"}
-                      </Badge>
-                    )}
-                  </TableCell>
-                  
-                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-                    {item.collectionPrice}
-                  </TableCell>
-                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-                    {item.lastEdited}
-                  </TableCell>
-                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#16A34A]">
-                    {item.stock}
-                  </TableCell>
-                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
-                    <div className="w-full flex items-center justify-end gap-2">
-                      <Button variant="ghost">
-                        <ViewIcon />
-                      </Button>
-                      <Button variant="ghost">
-                        <EditIcon />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+  <TableRow
+    key={item.id}
+    className={`${
+      idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
+    } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
+  >
+    {/* Product Image */}
+    <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
+      <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
+        <Image
+          src={cloth}
+          alt="cloth image"
+          width={24}
+          height={24}
+          className="w-full h-full object-cover rounded-[0.5rem]"
+        />
+      </div>
+    </TableCell>
+
+    {/* Product Name */}
+    <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+      {item.productName}
+    </TableCell>
+
+    {/* Badge */}
+    <TableCell className="text-right">
+      <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+        Low Stock
+      </Badge>
+    </TableCell>
+
+    {/* Collection Price */}
+    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+      {item.collectionPrice}
+    </TableCell>
+
+    {/* Last Edited */}
+    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
+      <p
+        className={
+          item.lastEdited === "12/09/25"
+            ? "text-[#000000]"
+            : item.lastEdited === "In stock"
+            ? "text-[#16a34a]"
+            : "text-[#000000]"
+        }
+      >
+        {item.lastEdited}
+      </p>
+    </TableCell>
+
+    {/* Stock */}
+    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
+      <p
+        className={
+          item.stock === "12/09/25"
+            ? "text-[#000000]"
+            : item.stock === "In stock"
+            ? "text-[#16A34A]"
+            : "text-[#000000]"
+        }
+      >
+        {item.stock}
+      </p>
+    </TableCell>
+
+    {/* Actions */}
+    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
+      <div className="w-full flex items-center justify-end gap-2">
+        <Button variant="ghost">
+          <ViewIcon />
+        </Button>
+        <Button variant="ghost">
+          <EditIcon />
+        </Button>
+      </div>
+    </TableCell>
+  </TableRow>
+))}
+
             </TableBody>
           </Table>
-          <p className="text-[#3d3d3d] font-lexend text-[12px]">See More </p>
+          <span className="flex">
+            <p className="text-[#989898] text-center font-lexend text-[12px]">See More </p>
+            <img src={dropdown} alt="dropdown" />
+          </span>
           <h1 className="text-[#3D3D3D] font-lexend text-[12px] text-center">
-            S/S 24 Waves and Worn Collection (42)
+            S/S 24 Waves and Worn Collection (7)
           </h1>
           <Table>
             <TableHeader className="w-full max-w-[72.75rem]">
@@ -360,74 +385,95 @@ export function ProductsSection() {
               )}
               {!isLoading && !error && rows.length === 0 && (
                 <TableRow>
-                  <TableCell
+                  <TableCellf
                     colSpan={7}
                     className="text-center text-xs text-[#292929] py-6"
                   >
-                    No products yet
+                    No collection yet
                   </TableCell>
                 </TableRow>
               )}
               {collections.map((item, idx) => (
-                <TableRow
-                  key={item.id}
-                  className={`${
-                    idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
-                  } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
-                >
-                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
-                    <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
-                      
-                        <Image
-                          src={cloth}
-                          alt="Image cloth"
-                          width={24}
-                          height={24}
-                          className="w-full h-full object-cover rounded-[0.5rem]"
-                        />
-                     
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-                    {item.productName}
-                  </TableCell>
+  <TableRow
+    key={item.id}
+    className={`${
+      idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
+    } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
+  >
+    {/* Product Image */}
+    <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
+      <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
+        <Image
+          src={cloth}
+          alt="cloth image"
+          width={24}
+          height={24}
+          className="w-full h-full object-cover rounded-[0.5rem]"
+        />
+      </div>
+    </TableCell>
 
-                  <TableCell className="text-right">
-                    {collections.approved === "approved" ? (
-                      <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
-                        Approved
-                      </Badge>
-                    ) : collections.approved === "pending" ? (
-                      <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
-                        Pending
-                      </Badge>
-                    ) : (
-                      <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem] capitalize">
-                        {collections.approved || "Pending"}
-                      </Badge>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-                    {item.collectionPrice}
-                  </TableCell>
-                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-                    {item.lastEdited}
-                  </TableCell>
-                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#16A34A]">
-                    {item.stock}
-                  </TableCell>
-                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
-                    <div className="w-full flex items-center justify-end gap-2">
-                      <Button variant="ghost">
-                        <ViewIcon />
-                      </Button>
-                      <Button variant="ghost">
-                        <EditIcon />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+    {/* Product Name */}
+    <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+      {item.productName}
+    </TableCell>
+
+    {/* Badge */}
+    <TableCell className="text-right">
+      <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+        Low Stock
+      </Badge>
+    </TableCell>
+
+    {/* Collection Price */}
+    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+      {item.collectionPrice}
+    </TableCell>
+
+    {/* Last Edited */}
+    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
+      <p
+        className={
+          item.lastEdited === "12/09/25"
+            ? "text-[#000000]"
+            : item.lastEdited === "In stock"
+            ? "text-[#16a34a]"
+            : "text-[#000000]"
+        }
+      >
+        {item.lastEdited}
+      </p>
+    </TableCell>
+
+    {/* Stock */}
+    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
+      <p
+        className={
+          item.stock === "12/09/25"
+            ? "text-[#000000]"
+            : item.stock === "In stock"
+            ? "text-[#16A34A]"
+            : "text-[#000000]"
+        }
+      >
+        {item.stock}
+      </p>
+    </TableCell>
+
+    {/* Actions */}
+    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
+      <div className="w-full flex items-center justify-end gap-2">
+        <Button variant="ghost">
+          <ViewIcon />
+        </Button>
+        <Button variant="ghost">
+          <EditIcon />
+        </Button>
+      </div>
+    </TableCell>
+  </TableRow>
+))}
+
             </TableBody>
           </Table>
         </>
