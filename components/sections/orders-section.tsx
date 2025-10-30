@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import {
   Table,
   TableBody,
@@ -43,6 +43,7 @@ type OrdersApiResponse = {
   per_page: number;
   total: number;
 };
+
 
 export function OrdersSection() {
   const { user } = useAuth();
@@ -164,9 +165,11 @@ export function OrdersSection() {
                     </Badge>
                   )}
                 </TableCell>
+              <Link href={'/dashboard/orders/order-details'}>
                <TableCell>
                 <ViewIcon />
                </TableCell>
+              </Link>
               </TableRow>
             ))}
           </TableBody>
