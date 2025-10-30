@@ -140,7 +140,7 @@ export function EarningsSection() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow className="text-left">
+          <TableRow>
             <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
               <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
                 <Image
@@ -191,18 +191,31 @@ export function EarningsSection() {
                 />
               </div>
             </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
-              <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
-                <Image
-                  src={cloth}
-                  alt="cloth image"
-                  width={24}
-                  height={24}
-                  className="w-full h-full object-cover rounded-[0.5rem]"
-                />
-              </div>
+            <TableCell>
+              <p className="text-[12px]">
+                Semiotics twee williamsburg helvetica offal sustainable juice
+                church
+              </p>
+            </TableCell>
+            <TableCell>
+              <Badge className="bg-[#BBF7D1] border ml-2 border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                Complete
+              </Badge>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$43</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">16</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$123</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$1,822</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">12/09/25</p>
             </TableCell>
           </TableRow>
           <TableRow>
@@ -217,18 +230,31 @@ export function EarningsSection() {
                 />
               </div>
             </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
-              <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
-                <Image
-                  src={cloth}
-                  alt="cloth image"
-                  width={24}
-                  height={24}
-                  className="w-full h-full object-cover rounded-[0.5rem]"
-                />
-              </div>
+            <TableCell>
+              <p className="text-[12px]">
+                Semiotics twee williamsburg helvetica offal sustainable juice
+                church
+              </p>
+            </TableCell>
+            <TableCell>
+              <Badge className="bg-[#BBF7D1] border ml-2 border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                Complete
+              </Badge>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$43</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">16</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$123</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$1,822</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">12/09/25</p>
             </TableCell>
           </TableRow>
           <TableRow>
@@ -243,18 +269,31 @@ export function EarningsSection() {
                 />
               </div>
             </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
-              <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
-                <Image
-                  src={cloth}
-                  alt="cloth image"
-                  width={24}
-                  height={24}
-                  className="w-full h-full object-cover rounded-[0.5rem]"
-                />
-              </div>
+            <TableCell>
+              <p className="text-[12px]">
+                Semiotics twee williamsburg helvetica offal sustainable juice
+                church
+              </p>
+            </TableCell>
+            <TableCell>
+              <Badge className="bg-[#BBF7D1] border ml-2 border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                Complete
+              </Badge>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$43</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">16</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$123</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$1,822</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">12/09/25</p>
             </TableCell>
           </TableRow>
           <TableRow>
@@ -269,6 +308,32 @@ export function EarningsSection() {
                 />
               </div>
             </TableCell>
+            <TableCell>
+              <p className="text-[12px]">
+                Semiotics twee williamsburg helvetica offal sustainable juice
+                church
+              </p>
+            </TableCell>
+            <TableCell>
+              <Badge className="bg-[#BBF7D1] border ml-2 border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                Complete
+              </Badge>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$43</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">16</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$123</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$1,822</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">12/09/25</p>
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
@@ -282,7 +347,154 @@ export function EarningsSection() {
                 />
               </div>
             </TableCell>
+            <TableCell>
+              <p className="text-[12px]">
+                Semiotics twee williamsburg helvetica offal sustainable juice
+                church
+              </p>
+            </TableCell>
+            <TableCell>
+              <Badge className="bg-[#BBF7D1] border ml-2 border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                Complete
+              </Badge>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$43</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">16</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$123</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$1,822</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">12/09/25</p>
+            </TableCell>
           </TableRow>
+          <TableRow>
+            <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
+              <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
+                <Image
+                  src={cloth}
+                  alt="cloth image"
+                  width={24}
+                  height={24}
+                  className="w-full h-full object-cover rounded-[0.5rem]"
+                />
+              </div>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">
+                Semiotics twee williamsburg helvetica offal sustainable juice
+                church
+              </p>
+            </TableCell>
+            <TableCell>
+              <Badge className="bg-[#BBF7D1] border ml-2 border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                Complete
+              </Badge>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$43</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">16</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$123</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$1,822</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">12/09/25</p>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
+              <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
+                <Image
+                  src={cloth}
+                  alt="cloth image"
+                  width={24}
+                  height={24}
+                  className="w-full h-full object-cover rounded-[0.5rem]"
+                />
+              </div>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">
+                Semiotics twee williamsburg helvetica offal sustainable juice
+                church
+              </p>
+            </TableCell>
+            <TableCell>
+              <Badge className="bg-[#BBF7D1] border ml-2 border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                Complete
+              </Badge>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$43</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">16</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$123</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$1,822</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">12/09/25</p>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
+              <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
+                <Image
+                  src={cloth}
+                  alt="cloth image"
+                  width={24}
+                  height={24}
+                  className="w-full h-full object-cover rounded-[0.5rem]"
+                />
+              </div>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">
+                Semiotics twee williamsburg helvetica offal sustainable juice
+                church
+              </p>
+            </TableCell>
+            <TableCell>
+              <Badge className="bg-[#BBF7D1] border ml-2 border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                Complete
+              </Badge>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$43</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">16</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$123</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">$1,822</p>
+            </TableCell>
+            <TableCell>
+              <p className="text-[12px]">12/09/25</p>
+            </TableCell>
+          </TableRow>
+         
+          
+            
+         
         </TableBody>
       </Table>
     </div>

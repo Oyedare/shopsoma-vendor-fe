@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
-import { Pencil, Plus, Trash,ChevronDown } from "lucide-react";
+import { Pencil, Plus, Trash, ChevronDown } from "lucide-react";
 import cloth from "@/assets/cloth.png";
 
 import {
@@ -39,7 +39,7 @@ type Collection = {
   collectionPrice: string;
   lastEdited: string;
   stock: string;
-  approved:string
+  approved: string;
 };
 
 export function ProductsSection() {
@@ -59,7 +59,7 @@ export function ProductsSection() {
       collectionPrice: "$423",
       lastEdited: "In stock",
       stock: "12/09/25",
-      approved:'Low Stock'    
+      approved: "Low Stock",
     },
     {
       id: 2,
@@ -67,15 +67,16 @@ export function ProductsSection() {
       collectionPrice: "$423",
       lastEdited: "12/09/25",
       stock: "In stock",
-       approved:'Low Stock'    
+      approved: "Low Stock",
     },
     {
       id: 3,
-      productName: "Semiotics twee williamsburg helvetica sustainable juice church",
+      productName:
+        "Semiotics twee williamsburg helvetica sustainable juice church",
       collectionPrice: "$423",
       lastEdited: "In stock",
       stock: "12/09/25",
-       approved:'Low Stock'    
+      approved: "Low Stock",
     },
     {
       id: 4,
@@ -83,14 +84,14 @@ export function ProductsSection() {
       collectionPrice: "$423",
       lastEdited: "12/09/25",
       stock: "In stock",
-       approved:'Low Stock'    
+      approved: "Low Stock",
     },
     {
       id: 5,
       productName: "coffee typewriter right vape haven't",
       collectionPrice: "$423",
       lastEdited: "In stock",
-       approved:'Low Stock'    ,
+      approved: "Low Stock",
       stock: "12/09/25",
     },
   ];
@@ -198,9 +199,7 @@ export function ProductsSection() {
                 <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
                   Product Name
                 </TableHead>
-<TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
-                
-                </TableHead>
+                <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal"></TableHead>
                 <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
                   Price
                 </TableHead>
@@ -247,92 +246,91 @@ export function ProductsSection() {
                 </TableRow>
               )}
               {collections.map((item, idx) => (
-  <TableRow
-    key={item.id}
-    className={`${
-      idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
-    } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
-  >
-    {/* Product Image */}
-    <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
-      <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
-        <Image
-          src={cloth}
-          alt="cloth image"
-          width={24}
-          height={24}
-          className="w-full h-full object-cover rounded-[0.5rem]"
-        />
-      </div>
-    </TableCell>
+                <TableRow
+                  key={item.id}
+                  className={`${
+                    idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
+                  } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
+                >
+                  {/* Product Image */}
+                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
+                    <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
+                      <Image
+                        src={cloth}
+                        alt="cloth image"
+                        width={24}
+                        height={24}
+                        className="w-full h-full object-cover rounded-[0.5rem]"
+                      />
+                    </div>
+                  </TableCell>
 
-    {/* Product Name */}
-    <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-      {item.productName}
-    </TableCell>
+                  {/* Product Name */}
+                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {item.productName}
+                  </TableCell>
 
-    {/* Badge */}
-    <TableCell className="text-right">
-      <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
-        Low Stock
-      </Badge>
-    </TableCell>
+                  {/* Badge */}
+                  <TableCell className="text-right">
+                    <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                      Low Stock
+                    </Badge>
+                  </TableCell>
 
-    {/* Collection Price */}
-    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-      {item.collectionPrice}
-    </TableCell>
+                  {/* Collection Price */}
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {item.collectionPrice}
+                  </TableCell>
 
-    {/* Last Edited */}
-    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
-      <p
-        className={
-          item.lastEdited === "12/09/25"
-            ? "text-[#000000]"
-            : item.lastEdited === "In stock"
-            ? "text-[#16a34a]"
-            : "text-[#000000]"
-        }
-      >
-        {item.lastEdited}
-      </p>
-    </TableCell>
+                  {/* Last Edited */}
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
+                    <p
+                      className={
+                        item.lastEdited === "12/09/25"
+                          ? "text-[#000000]"
+                          : item.lastEdited === "In stock"
+                          ? "text-[#16a34a]"
+                          : "text-[#000000]"
+                      }
+                    >
+                      {item.lastEdited}
+                    </p>
+                  </TableCell>
 
-    {/* Stock */}
-    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
-      <p
-        className={
-          item.stock === "12/09/25"
-            ? "text-[#000000]"
-            : item.stock === "In stock"
-            ? "text-[#16A34A]"
-            : "text-[#000000]"
-        }
-      >
-        {item.stock}
-      </p>
-    </TableCell>
+                  {/* Stock */}
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
+                    <p
+                      className={
+                        item.stock === "12/09/25"
+                          ? "text-[#000000]"
+                          : item.stock === "In stock"
+                          ? "text-[#16A34A]"
+                          : "text-[#000000]"
+                      }
+                    >
+                      {item.stock}
+                    </p>
+                  </TableCell>
 
-    {/* Actions */}
-    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
-      <div className="w-full flex items-center justify-end gap-2">
-        <Button variant="ghost">
-          <ViewIcon />
-        </Button>
-        <Button variant="ghost">
-          <EditIcon />
-        </Button>
-      </div>
-    </TableCell>
-  </TableRow>
-))}
-
+                  {/* Actions */}
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
+                    <div className="w-full flex items-center justify-end gap-2">
+                      <Button variant="ghost">
+                        <ViewIcon />
+                      </Button>
+                      <Button variant="ghost">
+                        <EditIcon />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
           <div className="flex items-center justify-center">
-  <p className="text-[#989898] text-center font-lexend">See More</p>
-  <ChevronDown className="text-[#989898] font-lexend " />
-</div>
+            <p className="text-[#989898] text-center font-lexend">See More</p>
+            <ChevronDown className="text-[#989898] font-lexend " />
+          </div>
 
           <h1 className="text-[#3D3D3D] font-lexend text-[12px] text-center">
             S/S 24 Waves and Worn Collection (7)
@@ -346,9 +344,7 @@ export function ProductsSection() {
                 <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
                   Product Name
                 </TableHead>
-<TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
-                
-                </TableHead>
+                <TableHead className="text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal"></TableHead>
                 <TableHead className="text-right text-[0.6875rem] tracking-[-0.00688rem] text-[#292929] font-normal">
                   Price
                 </TableHead>
@@ -395,86 +391,85 @@ export function ProductsSection() {
                 </TableRow>
               )}
               {collections.map((item, idx) => (
-  <TableRow
-    key={item.id}
-    className={`${
-      idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
-    } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
-  >
-    {/* Product Image */}
-    <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
-      <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
-        <Image
-          src={cloth}
-          alt="cloth image"
-          width={24}
-          height={24}
-          className="w-full h-full object-cover rounded-[0.5rem]"
-        />
-      </div>
-    </TableCell>
+                <TableRow
+                  key={item.id}
+                  className={`${
+                    idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
+                  } grid h-16 py-3 px-4 gap-y-10 gap-x-[40px] self-stretch grid-rows-1 grid-cols-[40px_minmax(0,1fr)_100px_70px_70px_70px_40px] w-full`}
+                >
+                  {/* Product Image */}
+                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
+                    <div className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] border border-[#DCDCDC] shadow-sm flex items-center justify-center">
+                      <Image
+                        src={cloth}
+                        alt="cloth image"
+                        width={24}
+                        height={24}
+                        className="w-full h-full object-cover rounded-[0.5rem]"
+                      />
+                    </div>
+                  </TableCell>
 
-    {/* Product Name */}
-    <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-      {item.productName}
-    </TableCell>
+                  {/* Product Name */}
+                  <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {item.productName}
+                  </TableCell>
 
-    {/* Badge */}
-    <TableCell className="text-right">
-      <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
-        Low Stock
-      </Badge>
-    </TableCell>
+                  {/* Badge */}
+                  <TableCell className="text-right">
+                    <Badge className="bg-[#BBF7D1] border border-[#166533] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                      Low Stock
+                    </Badge>
+                  </TableCell>
 
-    {/* Collection Price */}
-    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
-      {item.collectionPrice}
-    </TableCell>
+                  {/* Collection Price */}
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000]">
+                    {item.collectionPrice}
+                  </TableCell>
 
-    {/* Last Edited */}
-    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
-      <p
-        className={
-          item.lastEdited === "12/09/25"
-            ? "text-[#000000]"
-            : item.lastEdited === "In stock"
-            ? "text-[#16a34a]"
-            : "text-[#000000]"
-        }
-      >
-        {item.lastEdited}
-      </p>
-    </TableCell>
+                  {/* Last Edited */}
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
+                    <p
+                      className={
+                        item.lastEdited === "12/09/25"
+                          ? "text-[#000000]"
+                          : item.lastEdited === "In stock"
+                          ? "text-[#16a34a]"
+                          : "text-[#000000]"
+                      }
+                    >
+                      {item.lastEdited}
+                    </p>
+                  </TableCell>
 
-    {/* Stock */}
-    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
-      <p
-        className={
-          item.stock === "12/09/25"
-            ? "text-[#000000]"
-            : item.stock === "In stock"
-            ? "text-[#16A34A]"
-            : "text-[#000000]"
-        }
-      >
-        {item.stock}
-      </p>
-    </TableCell>
+                  {/* Stock */}
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem]">
+                    <p
+                      className={
+                        item.stock === "12/09/25"
+                          ? "text-[#000000]"
+                          : item.stock === "In stock"
+                          ? "text-[#16A34A]"
+                          : "text-[#000000]"
+                      }
+                    >
+                      {item.stock}
+                    </p>
+                  </TableCell>
 
-    {/* Actions */}
-    <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
-      <div className="w-full flex items-center justify-end gap-2">
-        <Button variant="ghost">
-          <ViewIcon />
-        </Button>
-        <Button variant="ghost">
-          <EditIcon />
-        </Button>
-      </div>
-    </TableCell>
-  </TableRow>
-))}
-
+                  {/* Actions */}
+                  <TableCell className="text-right text-[0.75rem] tracking-[-0.0075rem] text-[#000000] w-[6.5rem]">
+                    <div className="w-full flex items-center justify-end gap-2">
+                      <Button variant="ghost">
+                        <ViewIcon />
+                      </Button>
+                      <Button variant="ghost">
+                        <EditIcon />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </>
