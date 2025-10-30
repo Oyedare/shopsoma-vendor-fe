@@ -2,11 +2,12 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Edit from "@/assets/edit.svg";
+
 import fruit from "@/assets/fruit.svg";
 import Modal from "./Modal";
 import { Badge } from "@/components/ui/badge";
 import ChevronDown from "@/assets/chevron-down";
-import check from '@/assets/check.svg'
+import check from "@/assets/check.svg";
 interface FruitSummaryProps {
   bgColor: string;
   textColor: string;
@@ -18,6 +19,11 @@ const FruitSummary = ({
   borderColor,
 }: FruitSummaryProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsSelectOpen(!isSelectOpen);
+  };
 
   return (
     <>
@@ -48,63 +54,89 @@ const FruitSummary = ({
       </div>
 
       {/* Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <div className="flex gap-3 items-center">
-          <div>
-            <Image
-              src={fruit}
-              alt="fruit"
-              className="rounded-lg align-stretch w-[299px] self-stretch"
-            />
-          </div>
-          <div>
-            <div>
-              <p className="text-[#464646] font-lexend text-[17px]">
-                Organic carry green normcore irony
-              </p>
-              <p className="text-[#464646] font-lexend text-[12px]">$503</p>
-              <div>
-                <div className="flex py-2 border-b border-[#DCDCDC] justify-between">
-                  <p>Stock</p>
-                  <p>12</p>
-                </div>
-                <div className="flex py-2 border-b border-[#DCDCDC] justify-between">
-                  <p>Size</p>
-                  <p>XL</p>
-                </div>
-                <div className="flex py-2 border-b border-[#DCDCDC] justify-between">
-                  <p>Color</p>
-                  <p>Maroon</p>
-                </div>
-                <div className="flex py-2 border-b border-[#DCDCDC] justify-between">
-                  <p>Status</p>
-                  <span className="flex items-center gap-2 cursor-pointer">
-                    <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem] capitalize">
-                      Low stock
-                    </Badge>
-                    <ChevronDown />
-                  </span>
-                </div>
-                <div className="absolute top-2 bg-[#fafafa] border-[#dcdcdc] border-[0.5px] flex flex-col  rounded-[12px] p-[8px]">
+     <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+  <div className="fixed inset-0 bg-gray-500/40 backdrop-blur-sm flex items-center justify-center z-40">
+    <div className="bg-white rounded-[16px] shadow-lg p-6 max-w-[600px] w-[90%] relative z-50">
+      <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+        {/* Image Section */}
+        <button
+  onClick={() => setIsModalOpen(false)}
+  className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition"
+>
+  ✕
+</button>
+        <div className="flex-shrink-0">
+          <Image
+            src={fruit}
+            alt="fruit"
+            className="rounded-lg w-[299px]  object-cover"
+          />
+        </div>
+
+        {/* Details Section */}
+        <div className="flex-1">
+          <p className="text-[#464646] font-lexend mt-2 text-[15px] leading-tight">
+            Organic carry green normcore irony
+          </p>
+          <p className="text-[#464646] font-lexend text-[12px] mb-4">$503</p>
+
+          <div className="space-y-2">
+            <div className="flex py-2 border-b border-[#DCDCDC] justify-between">
+              <p>Stock</p>
+              <p>12</p>
+            </div>
+            <div className="flex py-2 border-b border-[#DCDCDC] justify-between">
+              <p>Size</p>
+              <p>XL</p>
+            </div>
+            <div className="flex py-2 border-b border-[#DCDCDC] justify-between">
+              <p>Color</p>
+              <p>Maroon</p>
+            </div>
+            <div className="flex py-2 border-b border-[#DCDCDC] justify-between relative">
+              <p>Status</p>
+              <span className="flex items-center gap-2 cursor-pointer">
+                <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem] capitalize">
+                  Low stock
+                </Badge>
+                <button onClick={handleClick}>
+                  <ChevronDown />
+                </button>
+              </span>
+
+              {isSelectOpen && (
+                <div className="absolute top-10 right-0 bg-[#fafafa] border-[#dcdcdc] border-[0.5px] flex flex-col rounded-[12px] p-[8px] z-50 shadow-md">
                   <Badge className="bg-[#FCA5A5] border border-[#991B1B] text-[#991B1B] py-1 rounded-[2.5rem] mt-2 mb-4 h-[1.5rem] px-3 text-[0.625rem] capitalize">
-                      Low stock
-                    </Badge>
-                <span>
+                    Low stock
+                  </Badge>
+                  <span className="flex items-center gap-2">
                     <Badge className="bg-[#FEE28A] border border-[#85680E] text-[#85680E] py-1 rounded-[2.5rem] mt-2 mb-4 h-[1.5rem] px-3 text-[0.625rem] capitalize">
                       Low stock
                     </Badge>
                     <Image src={check} alt="check" />
-                </span>
-
-                  <Badge className="bg-[#BBF7D1] border border-[#16A34A] text-[#156A2D] py-1 rounded-[2.5rem] mt-2  h-[1.5rem] px-3 text-[0.625rem] capitalize">
-                      Low stock
-                    </Badge>
+                  </span>
+                  <Badge className="bg-[#BBF7D1] border border-[#16A34A] text-[#156A2D] py-1 rounded-[2.5rem] mt-2 h-[1.5rem] px-3 text-[0.625rem] capitalize">
+                    Low stock
+                  </Badge>
                 </div>
-              </div>
+              )}
             </div>
+
+            <div className="flex mt-4 border-b border-[#DCDCDC] w-fit items-center gap-2 cursor-pointer">
+              <Image src={Edit} alt="Edit icon" />
+              <p className="text-[12px] font-lexend">Edit product</p>
+            </div>
+
+            <button className="bg-[#105E53] text-white w-full rounded-[12px] p-[12px] mt-4">
+              Update Status
+            </button>
           </div>
         </div>
-      </Modal>
+      </div>
+    </div>
+  </div>
+</Modal>
+
     </>
   );
 };
