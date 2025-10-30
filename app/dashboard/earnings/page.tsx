@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 export default function EarningsPage() {
   const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState("earnings");
+  const [activeSection, setActiveSection] = useState("earnings & Payout");
 
   useEffect(() => {
     if (!pathname) return;
