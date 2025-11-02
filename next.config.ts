@@ -1,6 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "shopsoma.local",
+        pathname: "/wp-content/**",
+      },
+      {
+        protocol: "https",
+        hostname: "shopsoma.local",
+        pathname: "/wp-content/**",
+      },
+    ],
+  },
   async rewrites() {
     return [
       {
