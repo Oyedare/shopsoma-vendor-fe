@@ -8,6 +8,7 @@ import ViewIcon from "@/assets/view-icon";
 import { Badge } from "../ui/badge";
 import ImageIcon from "@/assets/image-icon";
 import cloth from "@/assets/cloth.png";
+import EarningsModal from "./EarningsModal";
 import {
   Table,
   TableBody,
@@ -16,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import Link from "next/link";
 
 type Earnings = {
   id: number;
@@ -37,6 +39,7 @@ type Orders = {
 };
 export function EarningsSection() {
   const [active, setActive] = useState("product");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const earning: Earnings[] = [
     {
@@ -204,7 +207,6 @@ export function EarningsSection() {
       cutToken: "8,811",
       orderDate: "12/09/25",
     },
-
   ];
 
   return (
@@ -283,7 +285,10 @@ export function EarningsSection() {
         </div>
       </div>
       <div>
-        <div className="flex gap-2 items-center justify-center mt-10 ml-[46rem] bg-[#fafafa] w-[201px] p-[12px] border-[#dcdcdc] border-[0.5px] rounded-[12px]">
+        <div
+          onClick={() => setIsModalOpen(true)}
+          className="flex gap-2 items-center cursor-pointer justify-center mt-10 ml-[46rem] bg-[#fafafa] w-[201px] p-[12px] border-[#dcdcdc] border-[0.5px] rounded-[12px]"
+        >
           <ViewIcon />
           <p className="text-[#656565] font-lexend text-[12px]">
             View Withdrawals
@@ -388,7 +393,9 @@ export function EarningsSection() {
                 </TableCell>
 
                 <TableCell>
-                  <ViewIcon />
+                 <Link href={"/dashboard/earnings/earnings-details"}>
+                      <ViewIcon />
+                    </Link>
                 </TableCell>
               </TableRow>
             ))}
@@ -396,71 +403,119 @@ export function EarningsSection() {
         </Table>
       ) : (
         <>
-          <Table className="mt-10">
+          <Table className="mt-10  ">
             <TableHeader className="w-full">
-            <TableRow>
-              <TableHead className="text-[0.6875rem]  text-[#292929] font-lexend">
-               Order Number
-              </TableHead>
-              <TableHead className="text-[0.6875rem] text-[#292929] font-lexend">
-                Items Listed
-              </TableHead>
-              <TableHead className="text-right text-[0.6875rem] text-[#292929] font-lexend">
-                Status
-              </TableHead>
-              <TableHead className="text-right text-[0.6875rem] text-[#292929] font-lexend">
-                Quantity
-              </TableHead>
-              <TableHead className="text-right text-[0.6875rem] text-[#292929] font-lexend">
-                Cut Token 
-              </TableHead>
-              <TableHead className="text-right text-[0.6875rem] text-[#292929] font-lexend">
-                Dates
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {order.map((item) => (
-              <TableRow key={item.id}>
-                
-               
+              <TableRow>
+                <TableHead className="text-[0.6875rem]   text-[#292929] font-lexend">
+                  Order Number
+                </TableHead>
+                <TableHead className="text-[0.6875rem]  text-[#292929] font-lexend">
+                  Items Listed
+                </TableHead>
 
-                <TableCell>
-                  <p className="text-[12px] font-lexend">{item.orderNumber}</p>
-                </TableCell>
-                <TableCell>
-                  <p className="text-[12px]">{item.itemListed}</p>
-                </TableCell>
-
-                <TableCell>
-                  <Badge className="bg-[#BBF7D1] border  border-[#166533] ml-[4rem] text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
-                    Complete
-                  </Badge>
-                </TableCell>
-
-                <TableCell>
-                  <p className="text-[12px] text-center">{item.quantity}</p>
-                </TableCell>
-
-                <TableCell>
-                  <p className="text-[12px] text-center">${item.cutToken}</p>
-                </TableCell>
-
-                <TableCell>
-                  <p className="text-[12px] text-center">{item.orderDate}</p>
-                </TableCell>
-
-               
-
-                <TableCell>
-                  <ViewIcon />
-                </TableCell>
+                <TableHead className="text-[0.6875rem]  text-[#292929] font-lexend">
+                  Status
+                </TableHead>
+                <TableHead className="text-[0.6875rem]  text-[#292929] font-lexend">
+                  Quantity
+                </TableHead>
+                <TableHead className=" text-[0.6875rem]  text-[#292929] font-lexend">
+                  Cut Token
+                </TableHead>
+                <TableHead className=" text-[0.6875rem]  text-[#292929] font-lexend">
+                  Dates
+                </TableHead>
               </TableRow>
-            ))}
-          </TableBody>
+            </TableHeader>
+            <TableBody className="border-[0.5px] border-[#dcdcdc] rounded-[0.5rem]">
+              {order.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>
+                    <p className="text-[12px] font-lexend">
+                      {item.orderNumber}
+                    </p>
+                  </TableCell>
+
+                  <TableCell>
+                    <p className="text-[12px]">{item.itemListed}</p>
+                  </TableCell>
+
+                  <TableCell>
+                    <Badge className="bg-[#BBF7D1] border text-center  border-[#166533]  text-[#166533] py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem]">
+                      Complete
+                    </Badge>
+                  </TableCell>
+
+                  <TableCell>
+                    <p className="text-[12px] text-center">{item.quantity}</p>
+                  </TableCell>
+
+                  <TableCell>
+                    <p className="text-[12px] text-center">${item.cutToken}</p>
+                  </TableCell>
+
+                  <TableCell>
+                    <p className="text-[12px] text-center">{item.orderDate}</p>
+                  </TableCell>
+
+                  <TableCell>
+                    <Link href={"/dashboard/earnings/earnings-details"}>
+                      <ViewIcon />
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
           </Table>
         </>
       )}
+      <EarningsModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className="fixed inset-0 bg-gray-500/40 backdrop-blur-sm flex items-center justify-center z-40">
+          <div className="bg-white rounded-[16px] shadow-lg p-6 max-w-[600px] w-[364px] relative z-50">
+            <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+              {/* Image Section */}
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition"
+              >
+                ✕
+              </button>
+
+              {/* Details Section */}
+              <div className="flex-1">
+                <div>
+                  <p className="text-[#656565] font-lexend mt-2 text-[12px] leading-tight">
+                    Withdraw Earnings
+                  </p>
+                  <p className="text-[#3d3d3d] font-lexend mt-5 text-[27px] text-center leading-tight">
+                    - ₦500,000 +
+                  </p>
+                  <p className="text-[#656565]  text-center font-lexend  text-[12px] leading-tight">
+                    Est. Trnasfer Time: 3 days
+                  </p>
+                  <div className="mt-6">
+                    <p className="text-[#656565]   font-lexend  text-[12px] leading-tight">
+                      Choose Account
+                    </p>
+                    <div className="p-[12px] flex justify-between rounded-[12px] mt-2 border-[#dcdcdc] bg-[#fafafa] border-[0.5px]">
+                      <p className="text-[#989898] font-lexend text-[12px] ">
+                        Wema Bank (xxx4673)
+                      </p>
+                       <ChevronDown />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <button className="bg-[#105E53] text-white w-full rounded-[12px] p-[12px] mt-4">
+                    Begin Withdrawal
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </EarningsModal>
     </div>
   );
 }
