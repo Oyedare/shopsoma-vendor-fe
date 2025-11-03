@@ -12,11 +12,23 @@ interface FruitSummaryProps {
   bgColor: string;
   textColor: string;
   borderColor: string;
+  itemName?: string;
+  quantity?: number;
+  price?: string;
+  stockStatus?: string;
+  stockQuantity?: number;
+  image?: string;
 }
 const FruitSummary = ({
   bgColor,
   textColor,
   borderColor,
+  itemName = "Goth raclette irony pbr&b it",
+  quantity = 1,
+  price = "$837",
+  stockStatus = "low_stock",
+  stockQuantity = 0,
+  image,
 }: FruitSummaryProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
@@ -29,11 +41,29 @@ const FruitSummary = ({
     <>
       <div className="flex justify-between w-full p-4">
         <div className="flex gap-3 items-center">
-          <Image src={fruit} className="w-[83px] h-[83px]" alt="fruit image" />
+          {image ? (
+            <img
+              src={image}
+              className="w-[83px] h-[83px] object-cover rounded-md"
+              alt={itemName}
+            />
+          ) : (
+            <Image
+              src={fruit}
+              className="w-[83px] h-[83px]"
+              alt="product image"
+            />
+          )}
           <div className="p-[2px]">
-            <p className="text-[12px] ">Goth raclette irony pbr&b it</p>
-            <p className="text-[12px]">$837 . 1</p>
-            <p className="mt-5 text-[12px]">XL, Red</p>
+            <p className="text-[12px] ">{itemName}</p>
+            <p className="text-[12px]">
+              {price} × {quantity}
+            </p>
+            {stockQuantity !== undefined && (
+              <p className="mt-2 text-[10px] text-[#7c7c7c]">
+                Stock: {stockQuantity}
+              </p>
+            )}
           </div>
         </div>
 
@@ -46,9 +76,18 @@ const FruitSummary = ({
             <p className="text-[#7c7c7c] text-[12px] font-lexend">Update</p>
           </div>
           <Badge
-            className={`bg-${bgColor}border border-${borderColor} text-${textColor} mt-5 py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem] capitalize`}
+            style={{
+              backgroundColor: bgColor,
+              borderColor: borderColor,
+              color: textColor,
+            }}
+            className="mt-5 py-1 rounded-[2.5rem] h-[1.5rem] px-3 text-[0.625rem] capitalize border"
           >
-            low stock
+            {stockStatus === "unavailable"
+              ? "Out of Stock"
+              : stockStatus === "low_stock"
+              ? "Low Stock"
+              : "In Stock"}
           </Badge>
         </div>
       </div>

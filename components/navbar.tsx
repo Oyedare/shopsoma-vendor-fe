@@ -20,8 +20,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ArrowUpDown, Filter, Search } from "lucide-react";
 import SearchIcon from "@/assets/search-icon";
+import { useCurrency } from "@/contexts/currency-context";
 
 export function Navbar({ activeSection }: { activeSection: string }) {
+  const { currency, setCurrency, getCurrencySymbol } = useCurrency();
+
   return (
     <nav className="flex items-center justify-between">
       <h3 className="text-[1.3125rem] tracking-[-0.03938rem] text-[#292929] font-normal capitalize font-coconat">
@@ -30,10 +33,13 @@ export function Navbar({ activeSection }: { activeSection: string }) {
 
       <div className="flex items-center gap-4">
         {/* Currency Select */}
-        <Select defaultValue="usd">
+        <Select
+          value={currency.toLowerCase()}
+          onValueChange={(value) => setCurrency(value.toUpperCase() as any)}
+        >
           <SelectTrigger className="p-3 rounded-[0.75rem] border border-[#DCDCDC] bg-[#FAFAFA] text-xs text-[#292929]">
             <div className="flex items-center gap-1">
-              <span className="text-[#292929]">$</span>
+              <span className="text-[#292929]">{getCurrencySymbol()}</span>
               <SelectValue placeholder="USD" />
             </div>
           </SelectTrigger>

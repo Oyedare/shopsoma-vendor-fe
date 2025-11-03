@@ -11,10 +11,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
+import { useCurrency } from "@/contexts/currency-context";
 import { authenticatedRequest } from "@/lib/api";
-import { Eye } from "lucide-react";
-import { MoveLeft } from "lucide-react";
-import ViewIcon from "@/assets/view-icon";
 
 type VendorOrderItem = {
   item_id: number;
@@ -44,9 +42,9 @@ type OrdersApiResponse = {
   total: number;
 };
 
-
 export function OrdersSection() {
   const { user } = useAuth();
+  const { currency, formatAmount, getCurrencySymbol } = useCurrency();
   const [orders, setOrders] = useState<VendorOrder[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -61,7 +59,7 @@ export function OrdersSection() {
       setIsLoading(true);
       setError("");
       try {
-        const url = `http://shopsoma.local/wp-json/custom/v1/vendors/${vendorId}/orders?page=${page}&per_page=${perPage}`;
+        const url = `http://shopsoma.local/wp-json/custom/v1/vendors/${vendorId}/orders?page=${page}&per_page=${perPage}&currency=${currency}`;
         const res = await authenticatedRequest(url, { method: "GET" });
         if (!res.ok) throw new Error("Failed to fetch orders");
         const data: OrdersApiResponse = await res.json();
@@ -73,7 +71,7 @@ export function OrdersSection() {
       }
     };
     load();
-  }, [vendorId, page]);
+  }, [vendorId, page, currency]);
 
   const rows = useMemo(() => {
     return orders.map((o) => {
@@ -83,14 +81,18 @@ export function OrdersSection() {
             o.items.length > 1 ? ` +${o.items.length - 1} more` : ""
           }`
         : "-";
-      const price = `${o.currency || ""}${o.total}`;
+
+      // Format price using currency context
+      const totalAmount =
+        typeof o.total === "string" ? parseFloat(o.total) : o.total;
+      const price = formatAmount(totalAmount * 100, o.currency);
+
       return { id: String(o.order_id), content, price, status: o.status };
     });
-  }, [orders]);
+  }, [orders, formatAmount]);
 
   return (
     <section>
-     
       <div className=" overflow-hidden">
         <Table>
           <TableHeader>
@@ -143,7 +145,12 @@ export function OrdersSection() {
             {rows.map((row, idx) => (
               <TableRow
                 key={row.id}
-                className={idx % 2 === 0 ? "bg-white " : "bg-[#FAFAFA]"}
+                className={`${
+                  idx % 2 === 0 ? "bg-white " : "bg-[#FAFAFA]"
+                } cursor-pointer hover:bg-gray-100 transition-colors`}
+                onClick={() =>
+                  (window.location.href = `/dashboard/orders/order-details?orderId=${row.id}`)
+                }
               >
                 <TableCell className="text-[0.75rem] tracking-[-0.0075rem] text-[#292929]">
                   Order {row.id}
@@ -165,11 +172,6 @@ export function OrdersSection() {
                     </Badge>
                   )}
                 </TableCell>
-              <Link href={'/dashboard/orders/order-details'}>
-               <TableCell>
-                <ViewIcon />
-               </TableCell>
-              </Link>
               </TableRow>
             ))}
           </TableBody>
