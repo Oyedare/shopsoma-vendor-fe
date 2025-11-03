@@ -21,6 +21,7 @@ type EarningsDetails = {
   withdrawn:string;
   destinationAccount:string;
 }
+
 const EarningsDetails = () => {
 
   const earningsDetails: EarningsDetails[] = [
