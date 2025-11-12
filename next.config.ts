@@ -13,13 +13,18 @@ const nextConfig: NextConfig = {
         hostname: "shopsoma.local",
         pathname: "/wp-content/**",
       },
+      {
+        protocol: "https",
+        hostname: "api.shopsoma.com",
+        pathname: "/wp-content/**",
+      },
     ],
   },
   async rewrites() {
     return [
       {
         source: "/api/wp/:path*",
-        destination: "http://shopsoma.local/wp-json/:path*",
+        destination: "https://api.shopsoma.com/wp-json/:path*",
       },
     ];
   },

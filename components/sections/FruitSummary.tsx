@@ -68,13 +68,13 @@ const FruitSummary = ({
         </div>
 
         <div>
-          <div
+          {/* <div
             onClick={() => setIsModalOpen(true)}
             className="flex cursor-pointer bg-[#FAFAFA] border-[#dcdcdc] p-[4.5px] border-[0.5px] rounded-md items-center"
           >
             <Image src={Edit} alt="Edit icon" />
             <p className="text-[#7c7c7c] text-[12px] font-lexend">Update</p>
-          </div>
+          </div> */}
           <Badge
             style={{
               backgroundColor: bgColor,

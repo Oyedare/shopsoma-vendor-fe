@@ -59,7 +59,7 @@ export function ProductsSection() {
     setIsLoading(true);
     setError("");
     try {
-      const url = `http://shopsoma.local/wp-json/custom/v1/products/vendor/${vendorId}?page=${page}&per_page=${perPage}`;
+      const url = `https://api.shopsoma.com/wp-json/custom/v1/products/vendor/${vendorId}?page=${page}&per_page=${perPage}`;
       const res = await authenticatedRequest(url, { method: "GET" });
       if (!res.ok) throw new Error("Failed to fetch products");
       const data = await res.json();

@@ -251,7 +251,7 @@ const BrandInfo = ({
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        {/* <div className="flex flex-col gap-2">
           <h5 className="text-[#656565] font-lexend text-xs font-normal tracking-[-0.0075rem]">
             Logo
           </h5>
@@ -268,7 +268,7 @@ const BrandInfo = ({
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
           </button>
-        </div>
+        </div> */}
 
         <div className="flex flex-col gap-8">
           <div className="flex gap-2">

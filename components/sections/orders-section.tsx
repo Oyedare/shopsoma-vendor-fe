@@ -14,21 +14,31 @@ import { useAuth } from "@/contexts/auth-context";
 import { useCurrency } from "@/contexts/currency-context";
 import { authenticatedRequest } from "@/lib/api";
 
+type CurrencyObject = {
+  amount: number; // Amount in cents
+  currency: string;
+  baseAmount?: number;
+  baseCurrency?: string;
+  exchangeRate?: number;
+  rateTimestamp?: string;
+};
+
 type VendorOrderItem = {
   item_id: number;
   product_id: number;
   name: string;
   quantity: number;
-  subtotal: string | number;
-  total: string | number;
+  subtotal: CurrencyObject;
+  total: CurrencyObject;
 };
 
 type VendorOrder = {
   order_id: number;
   created: string;
   status: string;
-  total: string | number;
-  currency: string;
+  total: CurrencyObject;
+  original_currency?: string;
+  display_currency?: string;
   shipping_status?: string;
   tracking_number?: string;
   items: VendorOrderItem[];
@@ -59,7 +69,7 @@ export function OrdersSection() {
       setIsLoading(true);
       setError("");
       try {
-        const url = `http://shopsoma.local/wp-json/custom/v1/vendors/${vendorId}/orders?page=${page}&per_page=${perPage}&currency=${currency}`;
+        const url = `https://api.shopsoma.com/wp-json/custom/v1/vendors/${vendorId}/orders?page=${page}&per_page=${perPage}&currency=${currency}`;
         const res = await authenticatedRequest(url, { method: "GET" });
         if (!res.ok) throw new Error("Failed to fetch orders");
         const data: OrdersApiResponse = await res.json();
@@ -82,10 +92,9 @@ export function OrdersSection() {
           }`
         : "-";
 
-      // Format price using currency context
-      const totalAmount =
-        typeof o.total === "string" ? parseFloat(o.total) : o.total;
-      const price = formatAmount(totalAmount * 100, o.currency);
+      // Format price using CurrencyObject from backend
+      // Backend returns amount in cents, so we use it directly
+      const price = formatAmount(o.total.amount, o.total.currency);
 
       return { id: String(o.order_id), content, price, status: o.status };
     });

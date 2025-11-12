@@ -12,11 +12,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push("/auth/login");
-    }
-  }, [isAuthenticated, isLoading, router]);
+  // useEffect(() => {
+  //   if (!isLoading && !isAuthenticated) {
+  //     router.push("/auth/login");
+  //   }
+  // }, [isAuthenticated, isLoading, router]);
 
   if (isLoading) {
     return (
@@ -27,7 +27,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   if (!isAuthenticated) {
-    return null;
+    router.push("/auth/login");
   }
 
   return <>{children}</>;

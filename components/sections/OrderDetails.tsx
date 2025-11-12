@@ -20,9 +20,9 @@ type OrderItem = {
   variation_id: number | null;
   name: string;
   quantity: number;
-  price: number;
-  subtotal: number;
-  total: number;
+  price: CurrencyAmount;
+  subtotal: CurrencyAmount;
+  total: CurrencyAmount;
   variation: {
     color?: string;
     size?: string;
@@ -65,12 +65,15 @@ type OrderDetailData = {
   };
   estimated_delivery_date: string | null;
   total: CurrencyAmount;
-  order_currency: string;
-  display_currency: string;
+  original_currency?: string;
+  display_currency?: string;
   timeline: TimelineEvent[];
   order_summary: {
     items: OrderItem[];
     subtotal: CurrencyAmount;
+    shipping: CurrencyAmount;
+    tax: CurrencyAmount;
+    fees: CurrencyAmount;
     item_count: number;
     total_quantity: number;
   };
@@ -97,7 +100,7 @@ const OrderDetails = () => {
       setError("");
 
       try {
-        const url = `http://shopsoma.local/wp-json/custom/v1/vendors/${user.user_id}/orders/${orderId}?currency=${currency}`;
+        const url = `https://api.shopsoma.com/wp-json/custom/v1/vendors/${user.user_id}/orders/${orderId}?currency=${currency}`;
         const res = await authenticatedRequest(url, { method: "GET" });
 
         if (!res.ok) {
@@ -128,7 +131,31 @@ const OrderDetails = () => {
     return 10;
   };
 
-  // Format date
+  // Check if a string is a valid date
+  const isValidDate = (dateString: string): boolean => {
+    const date = new Date(dateString);
+    return date instanceof Date && !isNaN(date.getTime());
+  };
+
+  // Format date or return the string as-is if it's not a valid date
+  const formatDateOrString = (dateString: string | null): string => {
+    if (!dateString) return "N/A";
+
+    // If it's a valid date, format it
+    if (isValidDate(dateString)) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+    }
+
+    // Otherwise, return the string as-is (e.g., "24 Hours after logistics pickup")
+    return dateString;
+  };
+
+  // Format date (for order_date which should always be a valid date)
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -193,7 +220,7 @@ const OrderDetails = () => {
           Order #{orderData.order_id}
         </h1>
       </div>
-      <div className="mt-1.5">
+      <div className="mt-3 flex flex-col gap-2">
         <p className="text-[#989898] text-[14px] font-lexend leading-[14.4px] tracking-normal ">
           Ordered: {formatDate(orderData.order_date)}
         </p>
@@ -242,9 +269,7 @@ const OrderDetails = () => {
           <div className="mt-[4rem]">
             <p className="text-[#989898] text-[10px]">Estimated Delivery</p>
             <p className="text-[#3d3d3d] font-lexend text-[21px]">
-              {orderData.estimated_delivery_date
-                ? formatDate(orderData.estimated_delivery_date)
-                : "N/A"}
+              {formatDateOrString(orderData.estimated_delivery_date)}
             </p>
           </div>
         </div>
@@ -255,7 +280,7 @@ const OrderDetails = () => {
           <div className="mt-[4rem]">
             <p className="text-[#989898] text-[10px]">Total of order</p>
             <p className="text-[#3d3d3d] text-[21px] font-lexend text-3xl">
-              {formatAmount(orderData.total.amount, orderData.display_currency)}
+              {formatAmount(orderData.total.amount, orderData.total.currency)}
             </p>
           </div>
         </div>
@@ -337,26 +362,64 @@ const OrderDetails = () => {
                 textColor={textColor}
                 itemName={item.name}
                 quantity={item.quantity}
-                price={formatAmount(
-                  item.total * 100,
-                  orderData.display_currency
-                )}
+                price={formatAmount(item.total.amount, item.total.currency)}
                 stockStatus={item.stock_status}
                 stockQuantity={item.stock_quantity}
                 image={item.variation?.image}
               />
             );
           })}
-          <div className="mt-4 pt-4 border-t border-[#dcdcdc]">
+          <div className="mt-4 pt-4 border-t border-[#dcdcdc] space-y-2">
             <div className="flex justify-between items-center">
-              <p className="text-[#3D3D3D] font-semibold text-[14px]">
-                Subtotal
-              </p>
-              <p className="text-[#3D3D3D] font-semibold text-[14px]">
+              <p className="text-[#3D3D3D] text-[14px]">Subtotal</p>
+              <p className="text-[#3D3D3D] text-[14px]">
                 {formatAmount(
                   orderData.order_summary.subtotal.amount,
-                  orderData.display_currency
+                  orderData.order_summary.subtotal.currency
                 )}
+              </p>
+            </div>
+
+            {orderData.order_summary.shipping.amount > 0 && (
+              <div className="flex justify-between items-center">
+                <p className="text-[#3D3D3D] text-[14px]">Shipping</p>
+                <p className="text-[#3D3D3D] text-[14px]">
+                  {formatAmount(
+                    orderData.order_summary.shipping.amount,
+                    orderData.order_summary.shipping.currency
+                  )}
+                </p>
+              </div>
+            )}
+
+            {orderData.order_summary.tax.amount > 0 && (
+              <div className="flex justify-between items-center">
+                <p className="text-[#3D3D3D] text-[14px]">Tax</p>
+                <p className="text-[#3D3D3D] text-[14px]">
+                  {formatAmount(
+                    orderData.order_summary.tax.amount,
+                    orderData.order_summary.tax.currency
+                  )}
+                </p>
+              </div>
+            )}
+
+            {orderData.order_summary.fees.amount > 0 && (
+              <div className="flex justify-between items-center">
+                <p className="text-[#3D3D3D] text-[14px]">Fees</p>
+                <p className="text-[#3D3D3D] text-[14px]">
+                  {formatAmount(
+                    orderData.order_summary.fees.amount,
+                    orderData.order_summary.fees.currency
+                  )}
+                </p>
+              </div>
+            )}
+
+            <div className="flex justify-between items-center pt-2 border-t border-[#dcdcdc]">
+              <p className="text-[#3D3D3D] font-semibold text-[14px]">Total</p>
+              <p className="text-[#3D3D3D] font-semibold text-[14px]">
+                {formatAmount(orderData.total.amount, orderData.total.currency)}
               </p>
             </div>
           </div>

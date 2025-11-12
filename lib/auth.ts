@@ -121,16 +121,19 @@ export const loginUser = async (
   username: string,
   password: string
 ): Promise<LoginResponse> => {
-  const response = await fetch("/api/wp/custom/v1/login/vendor", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      password,
-    }),
-  });
+  const response = await fetch(
+    "https://api.shopsoma.com/wp-json/custom/v1/login/vendor",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Login failed");
@@ -146,15 +149,18 @@ export const refreshAccessToken = async (): Promise<RefreshResponse> => {
     throw new Error("No refresh token available");
   }
 
-  const response = await fetch("/api/wp/custom/v1/token/refresh", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      refresh_token: refreshToken,
-    }),
-  });
+  const response = await fetch(
+    "https://api.shopsoma.com/wp-json/custom/v1/token/refresh",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        refresh_token: refreshToken,
+      }),
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Token refresh failed");

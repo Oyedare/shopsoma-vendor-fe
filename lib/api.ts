@@ -7,29 +7,52 @@ import {
   clearTokens,
 } from "./auth";
 
-const API_BASE_URL = "http://shopsoma.local/wp-json/custom/v1";
+const API_BASE_URL = "https://api.shopsoma.com/wp-json/custom/v1";
 
 // Create a custom fetch function that handles token refresh
 export const apiRequest = async (
   url: string,
   options: RequestInit = {}
 ): Promise<Response> => {
+  // Setup a timeout to avoid hung requests (e.g., stalled CORS/Network)
+  const controller = new AbortController();
+  const timeoutMs = 45000; // 45 seconds
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
   const token = getAccessToken();
 
-  const defaultHeaders = {
-    "Content-Type": "application/json",
-    ...(token && { Authorization: `Bearer ${token}` }),
+  // Start with provided headers; we'll add Authorization and conditionally Content-Type
+  const providedHeaders = (options.headers || {}) as Record<string, string>;
+  const headers: Record<string, string> = {
+    ...providedHeaders,
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
+
+  // If the body is NOT FormData and caller didn't explicitly set Content-Type, default to JSON.
+  // For FormData, NEVER set Content-Type manually (browser sets with boundary).
+  const isFormData =
+    typeof FormData !== "undefined" && options.body instanceof FormData;
+  const hasContentType = Object.keys(headers).some(
+    (h) => h.toLowerCase() === "content-type"
+  );
+  if (!isFormData && !hasContentType) {
+    headers["Content-Type"] = "application/json";
+  }
 
   const config: RequestInit = {
     ...options,
-    headers: {
-      ...defaultHeaders,
-      ...options.headers,
-    },
+    headers,
+    signal: controller.signal,
   };
 
-  let response = await fetch(url, config);
+  let response: Response;
+  try {
+    response = await fetch(url, config);
+  } catch (err) {
+    // Ensure timeout is cleared before rethrowing
+    clearTimeout(timeoutId);
+    throw err;
+  }
 
   // If the response is Unauthorized or token expired (WP returns 403 with jwt_auth_invalid_token), try to refresh the token
   const shouldAttemptRefresh = async () => {
@@ -104,6 +127,7 @@ export const apiRequest = async (
     }
   }
 
+  clearTimeout(timeoutId);
   return response;
 };
 
@@ -134,6 +158,8 @@ export interface AddProductRequest {
   is_made_to_order?: boolean;
   production_time_days?: number;
   has_variants?: boolean;
+  collection_ids?: string[]; // Collection IDs (optional, array for multiple collections)
+  color?: string; // Product color (optional, only for products without variations)
   variants?: Array<{
     variation_name: string;
     variation_type: string;
@@ -169,16 +195,13 @@ export interface AddProductResponse {
 export const addProduct = async (
   productData: AddProductRequest
 ): Promise<AddProductResponse> => {
-  const response = await apiRequest(
-    "http://shopsoma.local/wp-json/custom/v1/vendor/add-product",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productData),
-    }
-  );
+  const response = await apiRequest(`${API_BASE_URL}/vendor/add-product`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(productData),
+  });
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
@@ -884,27 +907,59 @@ export const getCollectionsTableView =
 // Image Upload API
 export interface UploadImageResponse {
   success: boolean;
-  uploaded_images: Array<{
+  images: Array<{
     id: number;
     url: string;
     thumbnail?: string;
-    medium?: string;
-    large?: string;
-    full?: string;
   }>;
-  image_urls: string[];
 }
 
-// Upload images
+// Helper function to convert base64 to File
+export const base64ToFile = (
+  base64String: string,
+  filename: string = "image.jpg"
+): File => {
+  // Remove data URL prefix if present (e.g., "data:image/jpeg;base64,")
+  const base64Data = base64String.includes(",")
+    ? base64String.split(",")[1]
+    : base64String;
+
+  // Convert base64 to binary
+  const byteCharacters = atob(base64Data);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  const blob = new Blob([byteArray], { type: "image/jpeg" });
+
+  return new File([blob], filename, { type: "image/jpeg" });
+};
+
+// Helper function to check if string is base64
+export const isBase64 = (str: string): boolean => {
+  if (str.startsWith("http://") || str.startsWith("https://")) {
+    return false;
+  }
+  // Check if it's a data URL or base64 string
+  return (
+    str.includes("base64") ||
+    /^[A-Za-z0-9+/=]+$/.test(str.replace(/^data:image\/[^;]+;base64,/, ""))
+  );
+};
+
+// Upload images using the new media endpoint
 export const uploadImages = async (
   files: File[]
 ): Promise<UploadImageResponse> => {
   const formData = new FormData();
   files.forEach((file) => {
-    formData.append("images[]", file);
+    formData.append("files[]", file);
   });
 
-  const response = await fetch(`${API_BASE_URL}/upload-images`, {
+  // Backend confirmed upload endpoint path:
+  // POST /wp-json/custom/v1/upload-images (public with CORS)
+  const response = await authenticatedRequest("/upload-images", {
     method: "POST",
     body: formData,
     // Don't set Content-Type header - browser will set it with boundary for multipart/form-data

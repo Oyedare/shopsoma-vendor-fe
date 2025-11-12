@@ -15,11 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      style={{ fontFamily: '"Lexend", sans-serif', fontWeight: 400 }}
-    >
-      <body style={{ fontFamily: '"Lexend", sans-serif', fontWeight: 400 }}>
+    <html lang="en">
+      <body>
         <AuthProvider>
           <CurrencyProvider>{children}</CurrencyProvider>
         </AuthProvider>
