@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Full from "@/assets/full";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -58,21 +58,18 @@ const Login = () => {
 
         {/* Login Card */}
         <div className="w-full max-w-md relative">
-          {/* <div className="bg-[#DC2626] text-white absolute top-[-10%] w-full left-0 text-xs h-[10.375rem] tracking-[-0.0225rem] font-medium p-3 rounded-3xl border border-[#DCDCDC] text-center">
-            Wrong OTP code. <span className="font-bold">4 Attempts left</span>
-          </div> */}
+          {error && (
+            <div className="bg-[#DC2626] absolute -top-[8%] left-1/2 -translate-x-1/2 transform p-3 shadow-sm rounded-3xl z-0 pointer-events-none w-[28rem] h-[11.5rem] flex justify-center font-lexend text-xs tracking-[-0.0225rem] font-normal text-white">
+              {error}
+              {/* <span className="font-bold">4 Attemps left</span> */}
+            </div>
+          )}
 
           <form
             onSubmit={handleSubmit}
-            className="bg-[#fafafa] rounded-3xl shadow-sm p-5 flex flex-col gap-10 border border-[#DCDCDC] z-100"
+            className="bg-[#fafafa] rounded-3xl shadow-sm p-5 w-[28rem] flex flex-col gap-10 border border-[#DCDCDC] relative z-10"
           >
             {/* Error Message */}
-            {error && (
-              <div className="bg-red-500 text-white text-xs font-medium py-3 px-4 rounded-lg text-center">
-                {error}
-              </div>
-            )}
-
             <div className="flex flex-col items-center gap-[1.375rem]">
               <LoginArrow />
 

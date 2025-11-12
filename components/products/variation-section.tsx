@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Download } from "lucide-react";
 import EditIcon from "@/assets/edit-icon";
+import { SketchPicker } from "react-color";
 
 const SIZE_OPTIONS = ["XXXL", "XXL", "XL", "L", "M", "S", "XS", "XXS"] as const;
 
@@ -42,6 +43,7 @@ export default function VariationSection({
     S: "",
   });
   const [variationImages, setVariationImages] = useState<string[]>([]);
+  const [showColorPicker, setShowColorPicker] = useState(false);
   const onDataChangeRef = useRef(onDataChange);
 
   const normalizeColor = useCallback((value: string): string => {
@@ -271,29 +273,56 @@ export default function VariationSection({
       {/* Color selector */}
       <div className="flex flex-col gap-1">
         <label className="text-xs text-[#656565]">Color Selector</label>
-        <div className="flex items-center gap-3 h-10 bg-[#FAFAFA] border border-[#DCDCDC] rounded-[0.75rem] px-3">
-          <span
-            className="inline-block size-5 rounded-full"
-            style={{ backgroundColor: color }}
-          />
-          <input
-            value={color}
-            onChange={(e) => {
-              // Accept raw input while typing without auto-normalizing
-              setColor(e.target.value);
-              setTimeout(() => emitVariationData(), 0);
-            }}
-            onBlur={() => {
-              // Normalize only after the user finishes editing
-              const fixed = normalizeColor(color);
-              if (fixed !== color) {
-                setColor(fixed);
+        <div className="relative">
+          <div className="flex items-center gap-3 h-10 bg-[#FAFAFA] border border-[#DCDCDC] rounded-[0.75rem] px-3">
+            <span
+              className="inline-block size-5 rounded-full border border-[#DCDCDC]"
+              style={{ backgroundColor: color }}
+            />
+            <input
+              value={color}
+              onChange={(e) => {
+                // Accept raw input while typing without auto-normalizing
+                setColor(e.target.value);
                 setTimeout(() => emitVariationData(), 0);
-              }
-            }}
-            className="flex-1 bg-transparent outline-none text-xs text-[#292929]"
-            placeholder="#RRGGBB or rgb(r,g,b)"
-          />
+              }}
+              onBlur={() => {
+                // Normalize only after the user finishes editing
+                const fixed = normalizeColor(color);
+                if (fixed !== color) {
+                  setColor(fixed);
+                  setTimeout(() => emitVariationData(), 0);
+                }
+              }}
+              className="flex-1 bg-transparent outline-none text-xs text-[#292929]"
+              placeholder="#RRGGBB or rgb(r,g,b)"
+            />
+            <button
+              type="button"
+              onClick={() => setShowColorPicker(!showColorPicker)}
+              className="text-xs text-[#656565] px-2 py-1 border border-[#DCDCDC] rounded"
+            >
+              Pick Color
+            </button>
+          </div>
+          {showColorPicker && (
+            <>
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setShowColorPicker(false)}
+              />
+              <div className="absolute z-50 mt-2">
+                <SketchPicker
+                  color={color}
+                  onChange={(newColor) => {
+                    const hexColor = newColor.hex.toUpperCase();
+                    setColor(hexColor);
+                    setTimeout(() => emitVariationData(), 0);
+                  }}
+                />
+              </div>
+            </>
+          )}
         </div>
       </div>
 
@@ -401,11 +430,11 @@ export default function VariationSection({
       </label>
 
       {/* Save */}
-      <div>
+      {/* <div>
         <button className="w-full h-10 rounded-[0.625rem] bg-[#105E53] text-[#FAFAFA] text-xs tracking-[-0.0075rem]">
           Save Variation
         </button>
-      </div>
+      </div> */}
     </section>
   );
 }
